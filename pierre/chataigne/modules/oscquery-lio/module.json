@@ -1,0 +1,25 @@
+{
+    "name": "OSC Query Lionel",
+    "version": "1.0.0",
+    "type": "OSCQuery",
+    "description": "OSC Query Lionel",
+    "path": "Mésanges Charbonneuses",
+    "scripts": [ "oscquery-lio.js" ],
+    "hasInput": true,
+    "hasOutput": true,
+    "defaults": {
+        "Only sync from same name": false,
+        "Use address for naming": false,
+        "Output": {
+            "Local": false,
+            "Remote Host": "192.168.1.24",
+            "Remote port": 42000
+        }
+    },
+    "hideDefaultParameters": [
+        "useAddressForNaming",
+        "onlySyncFromSameName",
+        "output/customOSCPort",
+        "output/customWebsocketPort"
+    ]
+}

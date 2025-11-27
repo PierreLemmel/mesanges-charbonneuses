@@ -1,0 +1,88 @@
+{
+    "name": "Pad Command",
+    "version": "1.0.0",
+    "type": "MIDI",
+    "description": "Les mésanges Charbonneuses",
+    "path": "Mésanges Charbonneuses",
+    "scripts": [ "pad-command.js" ],
+    "hasInput": true,
+    "hasOutput": false,
+    "alwaysShowValues": true,
+    "defaults": {
+        "Auto Add": false
+    },
+    "hideDefaultParameters": [
+    ],
+    "values": {
+        "Pads": {
+            "Type": "Container",
+            "Pad 1": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 2": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 3": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 4": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 5": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 6": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 7": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 8": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 9": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 10": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 11": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 12": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 13": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 14": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 15": {
+                "Type": "Boolean",
+                "readonly": true
+            },
+            "Pad 16": {
+                "Type": "Boolean",
+                "readonly": true
+            }
+        }
+    },
+    "commands": {
+
+    }
+}

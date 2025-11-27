@@ -1,0 +1,8 @@
+
+crashlog.dmp
+crashlog.txt
+
+*_recovered.noisette
+*_autosave/
+
+data/

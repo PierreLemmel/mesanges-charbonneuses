@@ -1,0 +1,225 @@
+{
+    "name": "Mésanges Charbonneuses",
+    "version": "1.0.0",
+    "type": "Empty",
+    "description": "Les mésanges Charbonneuses",
+    "path": "Mésanges Charbonneuses",
+    "scripts": [ "msgchb.js" ],
+    "commands": {
+        "Handle Note On": {
+            "menu": "Mésanges",
+            "callback": "handleNoteOn",
+            "parameters": {
+                "note": {
+                    "type": "String"
+                },
+                "channel": {
+                    "type": "Integer",
+                    "min": 1,
+                    "max": 9
+                },
+                "velocity": {
+                    "type": "Integer",
+                    "min": 0,
+                    "max": 127
+                }
+            }
+        },
+        "Handle Note Off": {
+            "menu": "Mésanges",
+            "callback": "handleNoteOff",
+            "parameters": {
+                "note": {
+                    "type": "String"
+                },
+                "channel": {
+                    "type": "Integer",
+                    "min": 1,
+                    "max": 9
+                }
+            }
+        },
+        "Set Square Opacity": {
+            "menu": "Mésanges",
+            "callback": "setSquareOpacity",
+            "parameters": {
+                "Square": {
+                    "type": "Integer",
+                    "min": 1,
+                    "max": 16
+                },
+                "Opacity": {
+                    "type": "Float",
+                    "min": 0,
+                    "max": 1
+                }
+            }
+        }
+    },
+    "values": {
+        "Midi": {
+            "type": "Container",
+            "Global": {
+                "type": "Container",
+                "Note On": {
+                    "type": "Trigger"
+                },
+                "Description": {
+                    "type": "String",
+                    "default": "Global (Chans 1 -> 9)",
+                    "readOnly": true
+                },
+                "Temps": {
+                    "type": "Container",
+                    "1": {
+                        "type": "Trigger"
+                    },
+                    "2": {
+                        "type": "Trigger"
+                    },
+                    "3": {
+                        "type": "Trigger"
+                    },
+                    "4": {
+                        "type": "Trigger"
+                    }
+                },
+                "All Notes": {
+                    "type": "Container"
+                },
+                "By Note": {
+                    "type": "Container"
+                }
+            },
+            "Channels": {
+                "type": "Container",
+                "Channel 1": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[1] Rêveur",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 2": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[2] Piano/Picking",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 3": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[3] Piano/Picking",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 4": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[4] Basses",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 5": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[5] Basses",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 6": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[6] Kick",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 7": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[7] Synthé",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 8": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[8] - (unused)",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                },
+                "Channel 9": {
+                    "type": "Container",
+                    "Description": {
+                        "type": "String",
+                        "default": "[9] Dubler",
+                        "readOnly": true
+                    },
+                    "By Note": {
+                        "type": "Container"
+                    },
+                    "All notes": {
+                        "type": "Container"
+                    }
+                }
+            }
+        }
+    }
+}
