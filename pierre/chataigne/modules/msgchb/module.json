@@ -39,6 +39,17 @@
                 }
             }
         },
+        "Beat": {
+            "menu": "Mésanges",
+            "callback": "beat",
+            "parameters": {
+                "beat": {
+                    "type": "Integer",
+                    "min": 1,
+                    "max": 4
+                }
+            }
+        },
         "Set Square Opacity": {
             "menu": "Mésanges",
             "callback": "setSquareOpacity",
@@ -67,6 +78,14 @@
                 "Description": {
                     "type": "String",
                     "default": "Global (Chans 1 -> 9)",
+                    "readOnly": true
+                },
+                "Notes per last bar": {
+                    "type": "Float",
+                    "readOnly": true
+                },
+                "Notes per last 2 bars": {
+                    "type": "Float",
                     "readOnly": true
                 },
                 "Temps": {
@@ -100,6 +119,14 @@
                         "default": "[1] Rêveur",
                         "readOnly": true
                     },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
                     "By Note": {
                         "type": "Container"
                     },
@@ -112,6 +139,14 @@
                     "Description": {
                         "type": "String",
                         "default": "[2] Piano/Picking",
+                        "readOnly": true
+                    },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
                         "readOnly": true
                     },
                     "By Note": {
@@ -128,6 +163,14 @@
                         "default": "[3] Piano/Picking",
                         "readOnly": true
                     },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
                     "By Note": {
                         "type": "Container"
                     },
@@ -140,6 +183,14 @@
                     "Description": {
                         "type": "String",
                         "default": "[4] Basses",
+                        "readOnly": true
+                    },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
                         "readOnly": true
                     },
                     "By Note": {
@@ -156,6 +207,14 @@
                         "default": "[5] Basses",
                         "readOnly": true
                     },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
                     "By Note": {
                         "type": "Container"
                     },
@@ -168,6 +227,14 @@
                     "Description": {
                         "type": "String",
                         "default": "[6] Kick",
+                        "readOnly": true
+                    },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
                         "readOnly": true
                     },
                     "By Note": {
@@ -184,6 +251,14 @@
                         "default": "[7] Synthé",
                         "readOnly": true
                     },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
                     "By Note": {
                         "type": "Container"
                     },
@@ -198,6 +273,14 @@
                         "default": "[8] - (unused)",
                         "readOnly": true
                     },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
                     "By Note": {
                         "type": "Container"
                     },
@@ -210,6 +293,14 @@
                     "Description": {
                         "type": "String",
                         "default": "[9] Dubler",
+                        "readOnly": true
+                    },
+                    "Notes per last bar": {
+                        "type": "Float",
+                        "readOnly": true
+                    },
+                    "Notes per last 2 bars": {
+                        "type": "Float",
                         "readOnly": true
                     },
                     "By Note": {

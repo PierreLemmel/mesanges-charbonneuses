@@ -21,6 +21,15 @@ function logMethods(input) {
     log(methods);
 }
 
+function ternary(condition, trueValue, falseValue) {
+    if (condition) {
+        return trueValue;
+    }
+    else {
+        return falseValue;
+    }
+}
+
 function getOctaveFromMidi(midi) {
     var octave = Math.floor(midi / 12) - 1 + "";
     octave = octave.substring(0, octave.length - 2);
@@ -68,6 +77,15 @@ function getNoteWithinOctaveFromMidi(midi) {
     }
 }
 
+function getNoteFromString(noteStr) {
+
+    var split = ternary(noteStr.contains("#"), 2, 1);
+    var note = noteStr.substring(0, split);
+    var octave = parseInt(noteStr.substring(split, noteStr.length));
+
+    return {note: note, octave: octave};
+}
+
 function getNoteFromMidi(midi) {
     return getNoteWithinOctaveFromMidi(midi) + getOctaveFromMidi(midi);
 }
@@ -106,27 +124,8 @@ function init() {
         for (var midi = 0; midi < 12; midi++) {
             var note = getNoteWithinOctaveFromMidi(midi);
 
-            var noteContainer = byNoteContainer.addContainer(note);
-
-            noteContainer.addTrigger("On", "Note on");
-            noteContainer.addIntParameter("Octave Count", "Octave Count", 0, 0, 11);
-            noteContainer.addIntParameter("Channel Count", "Channel Count", 0, 0, 9);
-
-            var onOctaveContainer = noteContainer.addContainer("On Octave");
-            for (var octave = -1; octave <= 9; octave++) {
-                var octaveStr = "Octave " + octave;
-                onOctaveContainer.addBoolParameter(octaveStr, octaveStr, false);
-            }
-
-            var onChannelContainer = noteContainer.addContainer("On Channel");
-            for (var i = 1; i <= 9; i++) {
-                onChannelContainer.addBoolParameter("Channel " + i, "Channel " + i, false);
-            }
-
-            onOctaveContainer.setCollapsed(true);
-            onChannelContainer.setCollapsed(true);
-
-            noteContainer.setCollapsed(true);
+            byNoteContainer.addTrigger(note, "Note on");
+            // Analysis based on octave and channel is not set beacause it adds a layer of complexity
         }
     }
 
@@ -177,6 +176,14 @@ function init() {
         setupAllNotesContainer(chan);
         setupByNoteContainer(chan);
     }
+
+    notesOnThisBar = [];
+    notesOnLastBar = [];
+
+    for (var i = 0; i < 9; i++) {
+        notesOnThisBar[i] = 0;
+        notesOnLastBar[i] = 0;
+    }
 }
 
 function moduleValueChanged(value) {
@@ -196,11 +203,102 @@ function setSquareOpacity(square,opacity) {
     root.modules.madMapper.send(path, opacity);
 }
 
+function noteToPath(note) {
+    return note.replace("-", "_").toLowerCase();
+}
+
 function handleNoteOn(note, channel, velocity) {
+
+    var notePath = noteToPath(note);
+
+    var noteData = getNoteFromString(note);
     
+    var noteWithinOctave = noteData.note;
+    var noteWithinOctavePath = noteToPath(noteWithinOctave);
+
+    var octave = noteData.octave;
+
+
     local.values.midi.global.noteOn.trigger();
+
+    var globalAllNotesContainer = local.values.midi.global.allNotes[notePath];
+    globalAllNotesContainer.on.trigger();
+    globalAllNotesContainer.count.set(globalAllNotesContainer.count.get() + 1);
+    globalAllNotesContainer["channel" + channel].set(true);
+
+    local.values.midi.global.byNote[noteWithinOctavePath].trigger();
+
+
+    var channelByNoteContainer = local.values.midi.channels["channel" + channel].byNote[noteWithinOctavePath];
+    channelByNoteContainer.on.trigger();
+    channelByNoteContainer.count.set(channelByNoteContainer.count.get() + 1);
+    channelByNoteContainer["octave" + octave].set(true);
+
+
+    var channelAllNotesContainer = local.values.midi.channels["channel" + channel].allNotes[notePath];
+    channelAllNotesContainer.on.trigger();
+    channelAllNotesContainer.velocity.set(velocity);
+    channelAllNotesContainer.playing.set(true);
+
+    notesOnThisBar[channel - 1]++;
 }
 
 function handleNoteOff(note, channel) {
+    var notePath = noteToPath(note);
+
+    var noteData = getNoteFromString(note);
     
+    var noteWithinOctave = noteData.note;
+    var noteWithinOctavePath = noteToPath(noteWithinOctave);
+
+    var octave = noteData.octave;
+
+
+    var globalAllNotesContainer = local.values.midi.global.allNotes[notePath];
+
+    globalAllNotesContainer.count.set(Math.max(0, globalAllNotesContainer.count.get() - 1));
+    globalAllNotesContainer["channel" + channel].set(false);
+
+    var channelByNoteContainer = local.values.midi.channels["channel" + channel].byNote[noteWithinOctavePath];
+    channelByNoteContainer.count.set(Math.max(0, channelByNoteContainer.count.get() - 1));
+    channelByNoteContainer["octave" + octave].set(false);
+
+    var channelAllNotesContainer = local.values.midi.channels["channel" + channel].allNotes[notePath];
+    channelAllNotesContainer.off.trigger();
+    channelAllNotesContainer.velocity.set(0);
+    channelAllNotesContainer.playing.set(false);
+}
+
+function beat(beat) {
+    local.values.midi.global.temps[beat+""].trigger();
+    if(beat == 1) {
+        onBarStarted();
+    }
+}
+
+var notesOnThisBar = [];
+var notesOnLastBar = [];
+
+function onBarStarted() {
+    var lastBarTotal = 0;
+    var last2BarsTotal = 0;
+
+    for (var i = 0; i < 9; i++) {
+
+        var chan = i + 1;
+        var thisBarCount = notesOnThisBar[i];
+        var lastBarCount = notesOnLastBar[i];
+
+        local.values.midi.channels["channel" + chan].notesPerLastBar.set(thisBarCount);
+        local.values.midi.channels["channel" + chan].notesPerLast2Bars.set((lastBarCount + thisBarCount) / 2);
+
+        lastBarTotal += thisBarCount;
+        last2BarsTotal += lastBarCount;
+
+        notesOnLastBar[i] = thisBarCount;
+        notesOnThisBar[i] = 0;
+    }
+
+    local.values.midi.global.notesPerLastBar.set(lastBarTotal);
+    local.values.midi.global.notesPerLast2Bars.set((last2BarsTotal + lastBarTotal) / 2);
 }
